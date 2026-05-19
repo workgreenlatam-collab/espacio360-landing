@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roadmap Gratis 2026 — Cloud + IA + Automatización | Espacio 360</title>
+<meta name="description" content="El roadmap gratuito para empezar en cloud, IA y automatización desde cero. Actualizado 2026.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#04060F;
+  --bg2:#080C1A;
+  --bg3:#0C1225;
+  --azul:#0055FF;
+  --azul2:#0044CC;
+  --neon:#00D4FF;
+  --neon2:#00FFB3;
+  --blanco:#FFFFFF;
+  --gris:#8892A4;
+  --gris2:#4A5568;
+  --verde:#00FFB3;
+  --amarillo:#FFD600;
+  --rojo:#FF3366;
+  --r:10px;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--blanco);
+  font-family:'Space Grotesk',sans-serif;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* ── CURSOR ── */
+.cursor{
+  width:12px;height:12px;
+  background:var(--neon);
+  border-radius:50%;
+  position:fixed;
+  pointer-events:none;
+  z-index:9999;
+  mix-blend-mode:difference;
+  transition:transform .15s ease;
+}
+.cursor-ring{
+  width:36px;height:36px;
+  border:1.5px solid rgba(0,212,255,.4);
+  border-radius:50%;
+  position:fixed;
+  pointer-events:none;
+  z-index:9998;
+  transition:all .12s ease;
+}
+
+/* ── CANVAS ── */
+#particleCanvas{
+  position:fixed;inset:0;
+  z-index:0;
+  opacity:.6;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 40px;
+  background:rgba(4,6,15,.7);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(0,212,255,.08);
+}
+.nav-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:22px;letter-spacing:3px;
+  color:var(--blanco);text-decoration:none;
+  display:flex;align-items:center;gap:10px;
+}
+.nav-logo-dot{
+  width:8px;height:8px;
+  background:var(--neon);border-radius:50%;
+  animation:blink 2s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.nav-pill{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--neon2);
+  border:1px solid rgba(0,255,179,.2);
+  padding:6px 14px;border-radius:100px;
+  background:rgba(0,255,179,.05);
+  letter-spacing:.5px;
+}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;align-items:center;
+  padding:100px 40px 60px;
+  position:relative;z-index:1;
+  max-width:1000px;margin:0 auto;
+}
+.hero-inner{width:100%}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;color:var(--neon);
+  letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:32px;
+  opacity:0;animation:slideUp .6s .1s ease forwards;
+}
+.hero-eyebrow::before{
+  content:'';display:block;
+  width:32px;height:1px;background:var(--neon);
+}
+.hero-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(64px,10vw,110px);
+  line-height:.95;
+  letter-spacing:-1px;
+  margin-bottom:20px;
+  opacity:0;animation:slideUp .7s .2s ease forwards;
+}
+.hero-title .accent{
+  -webkit-text-stroke:2px var(--neon);
+  color:transparent;
+  display:block;
+}
+.hero-title .solid{display:block;color:var(--blanco)}
+.hero-sub{
+  font-size:18px;color:var(--gris);
+  max-width:520px;line-height:1.7;
+  margin-bottom:48px;
+  opacity:0;animation:slideUp .7s .3s ease forwards;
+}
+.hero-sub strong{color:var(--blanco)}
+.hero-stats{
+  display:flex;gap:0;
+  margin-bottom:52px;
+  opacity:0;animation:slideUp .7s .4s ease forwards;
+}
+.hero-stat{
+  padding:20px 32px;
+  border:1px solid rgba(255,255,255,.07);
+  position:relative;
+}
+.hero-stat:first-child{border-radius:var(--r) 0 0 var(--r)}
+.hero-stat:last-child{border-radius:0 var(--r) var(--r) 0}
+.hero-stat::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--neon),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.hero-stat:hover::before{opacity:1}
+.stat-n{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:36px;color:var(--neon);
+  display:block;line-height:1;
+}
+.stat-l{font-size:12px;color:var(--gris);margin-top:4px;letter-spacing:.3px}
+.hero-cta{
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  opacity:0;animation:slideUp .7s .5s ease forwards;
+}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:12px;
+  background:var(--azul);
+  color:var(--blanco);
+  padding:18px 36px;border-radius:var(--r);
+  font-family:'Space Grotesk',sans-serif;
+  font-size:16px;font-weight:700;
+  text-decoration:none;border:none;cursor:none;
+  transition:all .25s;
+  position:relative;overflow:hidden;
+}
+.btn-primary::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--neon),var(--azul));
+  opacity:0;transition:opacity .3s;
+}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,85,255,.4)}
+.btn-primary:hover::before{opacity:1}
+.btn-primary span{position:relative;z-index:1}
+.btn-secondary{
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;color:var(--gris);
+  text-decoration:none;
+  border-bottom:1px solid rgba(148,162,164,.3);
+  padding-bottom:2px;
+  transition:color .2s,border-color .2s;
+  cursor:none;
+}
+.btn-secondary:hover{color:var(--neon);border-color:var(--neon)}
+
+/* ── SECCIÓN CONTENIDO ── */
+.section{
+  padding:100px 40px;
+  max-width:1000px;margin:0 auto;
+  position:relative;z-index:1;
+}
+.section-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--neon);
+  letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:16px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-tag::before{content:'//';color:var(--gris2)}
+.section-h{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(36px,5vw,56px);
+  letter-spacing:-.5px;line-height:1;
+  margin-bottom:14px;
+}
+.section-sub{font-size:16px;color:var(--gris);margin-bottom:52px;max-width:520px;line-height:1.6}
+
+/* ── MÓDULOS GRID ── */
+.modules{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.05);
+  border-radius:var(--r);
+  overflow:hidden;
+  margin-bottom:60px;
+}
+.module{
+  background:var(--bg2);
+  padding:32px;
+  transition:background .25s;
+  position:relative;
+  overflow:hidden;
+}
+.module::after{
+  content:'';position:absolute;
+  bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--azul),var(--neon));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .3s ease;
+}
+.module:hover{background:var(--bg3)}
+.module:hover::after{transform:scaleX(1)}
+.module-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--gris2);
+  margin-bottom:16px;letter-spacing:1px;
+}
+.module-icon{font-size:28px;margin-bottom:12px;display:block}
+.module-title{
+  font-size:16px;font-weight:700;
+  margin-bottom:8px;line-height:1.3;
+}
+.module-desc{font-size:13px;color:var(--gris);line-height:1.5}
+.module-badge{
+  display:inline-block;margin-top:14px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;color:var(--neon2);
+  border:1px solid rgba(0,255,179,.2);
+  padding:3px 10px;border-radius:100px;
+  background:rgba(0,255,179,.05);
+}
+
+/* ── FORM SECTION ── */
+.form-section{
+  padding:100px 40px;
+  position:relative;z-index:1;
+  background:linear-gradient(180deg,transparent,rgba(0,85,255,.04) 50%,transparent);
+}
+.form-wrapper{
+  max-width:560px;margin:0 auto;text-align:center;
+}
+.form-card{
+  background:rgba(8,12,26,.9);
+  border:1px solid rgba(0,212,255,.15);
+  border-radius:20px;
+  padding:52px 48px;
+  backdrop-filter:blur(20px);
+  position:relative;overflow:hidden;
+  box-shadow:0 0 80px rgba(0,85,255,.12),0 0 0 1px rgba(0,212,255,.06);
+  text-align:left;
+}
+.form-card::before{
+  content:'';position:absolute;
+  top:0;left:20%;right:20%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--neon),transparent);
+}
+.form-card-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--neon);
+  letter-spacing:2px;margin-bottom:20px;
+}
+.form-card-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:38px;letter-spacing:-.5px;
+  line-height:1;margin-bottom:10px;
+}
+.form-card-sub{font-size:14px;color:var(--gris);margin-bottom:32px;line-height:1.5}
+.input-group{display:flex;flex-direction:column;gap:12px;margin-bottom:20px}
+.input-wrap{position:relative}
+.input-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;color:var(--gris2);
+  letter-spacing:1.5px;text-transform:uppercase;
+  display:block;margin-bottom:7px;
+}
+.form-input{
+  width:100%;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:var(--r);
+  padding:14px 18px;
+  font-size:15px;
+  font-family:'Space Grotesk',sans-serif;
+  color:var(--blanco);
+  transition:all .2s;outline:none;
+}
+.form-input::placeholder{color:rgba(136,146,164,.4)}
+.form-input:focus{
+  border-color:var(--neon);
+  background:rgba(0,212,255,.06);
+  box-shadow:0 0 0 3px rgba(0,212,255,.1);
+}
+.btn-submit{
+  width:100%;
+  background:linear-gradient(135deg,var(--azul2),var(--azul));
+  border:none;border-radius:var(--r);
+  padding:17px 28px;
+  font-size:16px;font-weight:700;
+  font-family:'Space Grotesk',sans-serif;
+  color:var(--blanco);
+  cursor:none;transition:all .25s;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  box-shadow:0 8px 32px rgba(0,85,255,.35);
+  position:relative;overflow:hidden;
+}
+.btn-submit::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--neon),var(--azul));
+  opacity:0;transition:opacity .3s;
+}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 16px 48px rgba(0,212,255,.35)}
+.btn-submit:hover::after{opacity:1}
+.btn-submit-text{position:relative;z-index:1;display:flex;align-items:center;gap:10px}
+.form-fine{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--gris2);
+  text-align:center;margin-top:14px;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+}
+
+/* ── SUCCESS ── */
+.success{
+  display:none;text-align:center;padding:20px 0;
+}
+.success.show{display:block;animation:slideUp .5s ease both}
+.success-emoji{font-size:52px;display:block;margin-bottom:20px}
+.success-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:38px;margin-bottom:10px;letter-spacing:-.5px;
+}
+.success-sub{font-size:14px;color:var(--gris);margin-bottom:28px}
+.btn-dl{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--verde);color:var(--bg);
+  padding:16px 32px;border-radius:var(--r);
+  font-weight:700;font-size:15px;
+  text-decoration:none;transition:all .2s;
+  box-shadow:0 8px 32px rgba(0,255,179,.25);
+}
+.btn-dl:hover{transform:translateY(-2px);box-shadow:0 16px 48px rgba(0,255,179,.4)}
+
+/* ── HERRAMIENTAS ── */
+.tools-grid{
+  display:flex;flex-wrap:wrap;gap:10px;
+  margin-bottom:60px;
+}
+.tool-chip{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  padding:10px 16px;border-radius:100px;
+  font-size:13px;font-weight:500;
+  transition:all .2s;cursor:default;
+}
+.tool-chip:hover{
+  border-color:rgba(0,212,255,.3);
+  background:rgba(0,212,255,.06);
+  transform:translateY(-2px);
+}
+.chip-free{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;color:var(--verde);
+  background:rgba(0,255,179,.1);
+  padding:2px 8px;border-radius:100px;font-weight:700;
+}
+
+/* ── RESULTADOS ── */
+.results-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;
+  margin-bottom:60px;
+}
+@media(max-width:500px){.results-grid{grid-template-columns:1fr}}
+.result-item{
+  display:flex;align-items:flex-start;gap:12px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:var(--r);padding:18px;
+  transition:border-color .2s;
+}
+.result-item:hover{border-color:rgba(0,255,179,.2)}
+.result-check{
+  color:var(--verde);font-size:16px;
+  flex-shrink:0;margin-top:1px;
+}
+.result-text{font-size:14px;line-height:1.5;color:rgba(255,255,255,.8)}
+
+/* ── PROOF BAR ── */
+.proof-bar{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.05);
+  border-radius:var(--r);overflow:hidden;
+  margin-bottom:60px;
+}
+.proof-item{
+  background:var(--bg2);
+  padding:28px 24px;
+  display:flex;align-items:center;gap:14px;
+}
+.proof-icon{font-size:24px;flex-shrink:0}
+.proof-text{font-size:13px;color:var(--gris);line-height:1.4}
+.proof-text strong{color:var(--blanco);display:block;font-size:15px;margin-bottom:2px}
+@media(max-width:600px){.proof-bar{grid-template-columns:1fr}}
+
+/* ── PERFILES ── */
+.profiles-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:12px;
+  margin-bottom:60px;
+}
+@media(max-width:500px){.profiles-grid{grid-template-columns:1fr}}
+.profile{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:var(--r);padding:24px;
+  transition:all .25s;
+}
+.profile:hover{
+  border-color:rgba(0,212,255,.25);
+  background:rgba(0,212,255,.04);
+  transform:translateY(-2px);
+}
+.profile-icon{font-size:28px;display:block;margin-bottom:12px}
+.profile-name{font-size:15px;font-weight:700;margin-bottom:6px}
+.profile-desc{font-size:13px;color:var(--gris);line-height:1.5}
+
+/* ── CTA FINAL ── */
+.cta-final{
+  padding:120px 40px;
+  text-align:center;position:relative;z-index:1;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+.cta-line{
+  display:flex;align-items:center;gap:16px;
+  justify-content:center;margin-bottom:32px;
+}
+.cta-line-bar{
+  height:1px;width:60px;
+  background:linear-gradient(90deg,transparent,var(--neon));
+}
+.cta-line-bar.right{
+  background:linear-gradient(90deg,var(--neon),transparent);
+}
+.cta-kw{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;color:var(--neon);letter-spacing:2px;
+}
+.cta-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(40px,7vw,72px);
+  letter-spacing:-1px;line-height:1;
+  margin-bottom:20px;
+}
+.cta-sub{font-size:17px;color:var(--gris);margin-bottom:40px;max-width:480px;margin-left:auto;margin-right:auto}
+.btn-cta{
+  display:inline-flex;align-items:center;gap:12px;
+  background:transparent;
+  border:1.5px solid var(--neon);
+  color:var(--neon);
+  padding:18px 40px;border-radius:var(--r);
+  font-family:'Space Grotesk',sans-serif;
+  font-size:16px;font-weight:700;
+  text-decoration:none;cursor:none;
+  transition:all .25s;
+}
+.btn-cta:hover{
+  background:var(--neon);color:var(--bg);
+  transform:translateY(-3px);
+  box-shadow:0 16px 48px rgba(0,212,255,.3);
+}
+
+/* ── FOOTER ── */
+footer{
+  padding:40px;
+  border-top:1px solid rgba(255,255,255,.05);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;
+  position:relative;z-index:1;
+}
+.footer-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:18px;letter-spacing:3px;
+  color:var(--blanco);text-decoration:none;
+}
+.footer-logo span{color:var(--neon)}
+.footer-links{display:flex;gap:24px;flex-wrap:wrap}
+.footer-links a{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;color:var(--gris2);
+  text-decoration:none;transition:color .2s;
+}
+.footer-links a:hover{color:var(--neon)}
+.footer-copy{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--gris2);
+  width:100%;
+}
+
+/* ── FLOATING ── */
+.floating{
+  position:fixed;bottom:28px;right:28px;z-index:99;
+  background:var(--azul);
+  color:var(--blanco);
+  padding:14px 22px;border-radius:100px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;font-weight:700;letter-spacing:.5px;
+  text-decoration:none;cursor:none;
+  transition:all .25s;
+  box-shadow:0 8px 32px rgba(0,85,255,.4);
+  display:flex;align-items:center;gap:8px;
+  animation:slideInRight .6s .8s ease both;
+}
+.floating:hover{
+  background:var(--neon);color:var(--bg);
+  transform:translateY(-3px);
+  box-shadow:0 16px 48px rgba(0,212,255,.4);
+}
+.floating-dot{
+  width:7px;height:7px;
+  background:var(--verde);border-radius:50%;
+  animation:blink 1.5s ease-in-out infinite;
+}
+@keyframes slideInRight{from{transform:translateX(80px);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* ── ANIMACIONES ── */
+@keyframes slideUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:700px){
+  nav{padding:16px 20px}
+  .hero{padding:90px 20px 50px}
+  .hero-title{font-size:clamp(52px,14vw,80px)}
+  .section,.form-section,.cta-final{padding:70px 20px}
+  .form-card{padding:36px 24px}
+  .hero-stats{flex-direction:column}
+  .hero-stat{border-radius:var(--r)!important;border:1px solid rgba(255,255,255,.07)}
+  footer{padding:28px 20px}
+  .proof-bar{grid-template-columns:1fr}
+  .modules{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- CANVAS PARTÍCULAS -->
+<canvas id="particleCanvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <span class="nav-logo-dot"></span>
+    ESPACIO <span style="color:var(--neon)">360</span>
+  </a>
+  <span class="nav-pill">GUÍA GRATUITA · 2026</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Roadmap actualizado mayo 2026</div>
+    <h1 class="hero-title">
+      <span class="solid">Empezá en</span>
+      <span class="accent">CLOUD + IA</span>
+      <span class="solid">desde cero.</span>
+    </h1>
+    <p class="hero-sub">
+      El roadmap que nadie te da: <strong>qué aprender, en qué orden</strong> y con qué herramientas.<br>
+      Sin experiencia. Sin gastar un peso.
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="stat-n" id="cnt1">0</span>
+        <span class="stat-l">herramientas gratuitas</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-n">$0</span>
+        <span class="stat-l">para empezar hoy</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-n" id="cnt2">0</span>
+        <span class="stat-l">días para tu primer proyecto</span>
+      </div>
+    </div>
+    <div class="hero-cta">
+      <a href="#descargar" class="btn-primary">
+        <span>Descargá el roadmap gratis</span>
+        <span>→</span>
+      </a>
+      <a href="https://instagram.com/espacio360hub" target="_blank" class="btn-secondary">
+        o comentá ROADMAP en @espacio360hub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- MÓDULOS -->
+<section class="section reveal">
+  <div class="section-tag">contenido de la guía</div>
+  <h2 class="section-h">9 SECCIONES.<br>UN CAMINO CLARO.</h2>
+  <p class="section-sub">Cada sección tiene ejercicios concretos. Sin teoría vacía.</p>
+  <div class="modules">
+    <div class="module">
+      <div class="module-num">01 — DIAGNÓSTICO</div>
+      <span class="module-icon">🎯</span>
+      <div class="module-title">¿Dónde estás parado hoy?</div>
+      <div class="module-desc">Tabla de 4 perfiles con el camino exacto para cada uno.</div>
+      <span class="module-badge">Personalizado</span>
+    </div>
+    <div class="module">
+      <div class="module-num">02 — SECUENCIA</div>
+      <span class="module-icon">🗺️</span>
+      <div class="module-title">El orden correcto</div>
+      <div class="module-desc">5 etapas en la secuencia que realmente funciona.</div>
+      <span class="module-badge">Estrategia</span>
+    </div>
+    <div class="module">
+      <div class="module-num">03 — IA</div>
+      <span class="module-icon">🤖</span>
+      <div class="module-title">IA sin código</div>
+      <div class="module-desc">5 herramientas gratuitas + ejercicio para hacer hoy.</div>
+      <span class="module-badge">Accionable</span>
+    </div>
+    <div class="module">
+      <div class="module-num">04 — AUTOMATIZACIÓN</div>
+      <span class="module-icon">⚡</span>
+      <div class="module-title">No-code real</div>
+      <div class="module-desc">5 flujos que podés crear esta semana sin saber programar.</div>
+      <span class="module-badge">Práctico</span>
+    </div>
+    <div class="module">
+      <div class="module-num">05 — CLOUD</div>
+      <span class="module-icon">☁️</span>
+      <div class="module-title">Cloud básico</div>
+      <div class="module-desc">8 conceptos + 10 comandos de terminal + plataformas gratis.</div>
+      <span class="module-badge">Referencia</span>
+    </div>
+    <div class="module">
+      <div class="module-num">06 — PROYECTO</div>
+      <span class="module-icon">🏗️</span>
+      <div class="module-title">Tu primer proyecto</div>
+      <div class="module-desc">Plan día a día: landing con leads en 7 días. Costo: $0.</div>
+      <span class="module-badge">Proyecto real</span>
+    </div>
+    <div class="module">
+      <div class="module-num">07 — PORTFOLIO</div>
+      <span class="module-icon">💼</span>
+      <div class="module-title">Portfolio desde cero</div>
+      <div class="module-desc">Cómo mostrar lo que aprendés sin experiencia laboral previa.</div>
+      <span class="module-badge">Carrera</span>
+    </div>
+    <div class="module">
+      <div class="module-num">08 — GLOSARIO</div>
+      <span class="module-icon">📖</span>
+      <div class="module-title">20 términos 2026</div>
+      <div class="module-desc">Los que vas a escuchar todo el tiempo — explicados simple.</div>
+      <span class="module-badge">Referencia</span>
+    </div>
+  </div>
+</section>
+
+<!-- HERRAMIENTAS -->
+<section class="section reveal" style="padding-top:0">
+  <div class="section-tag">stack incluido</div>
+  <h2 class="section-h">TODAS GRATUITAS.</h2>
+  <p class="section-sub">550+ herramientas disponibles hoy. Estas son las que importan.</p>
+  <div class="tools-grid">
+    <div class="tool-chip">🤖 Claude <span class="chip-free">GRATIS</span></div>
+    <div class="tool-chip">💬 ChatGPT <span class="chip-free">GRATIS</span></div>
+    <div class="tool-chip">🔵 Gemini <span class="chip-free">GRATIS</span></div>
+    <div class="tool-chip">⚡ n8n <span class="chip-free">GRATIS</span></div>
+    <div class="tool-chip">🔗 Make <span class="chip-free">GRATIS</span></div>
+    <div class="tool-chip">🤖 ManyChat <span class="chip-free">GRATIS</span></div>
+    <div class="tool-chip">☁️ Google Cloud <span class="chip-free">GRATIS</span></div>
+    <div class="tool-chip">🟠 AWS Free Tier <span class="chip-free">GRATIS</span></div>
+    <div class="tool-chip">🐙 GitHub <span class="chip-free">GRATIS</span></div>
+    <div class="tool-chip">📊 Google Sheets <span class="chip-free">GRATIS</span></div>
+    <div class="tool-chip">🎨 Canva <span class="chip-free">GRATIS</span></div>
+    <div class="tool-chip">🔬 Google Colab <span class="chip-free">GRATIS</span></div>
+  </div>
+</section>
+
+<!-- RESULTADOS -->
+<section class="section reveal" style="padding-top:0">
+  <div class="section-tag">al terminar la guía</div>
+  <h2 class="section-h">LO QUE VAS<br>A LOGRAR.</h2>
+  <div class="results-grid">
+    <div class="result-item"><span class="result-check">✓</span><span class="result-text">Cuál es tu punto de partida y el camino exacto</span></div>
+    <div class="result-item"><span class="result-check">✓</span><span class="result-text">Usar Claude, ChatGPT o Gemini para tareas reales</span></div>
+    <div class="result-item"><span class="result-check">✓</span><span class="result-text">Tu primer flujo automático sin saber código</span></div>
+    <div class="result-item"><span class="result-check">✓</span><span class="result-text">Entender cloud, APIs y deploys sin perderte</span></div>
+    <div class="result-item"><span class="result-check">✓</span><span class="result-text">Los 10 comandos de terminal más importantes</span></div>
+    <div class="result-item"><span class="result-check">✓</span><span class="result-text">Landing con captura de leads en 7 días</span></div>
+    <div class="result-item"><span class="result-check">✓</span><span class="result-text">Portfolio sin experiencia laboral previa</span></div>
+    <div class="result-item"><span class="result-check">✓</span><span class="result-text">Qué certificaciones hacer y en qué orden</span></div>
+  </div>
+  <div class="proof-bar">
+    <div class="proof-item">
+      <span class="proof-icon">📊</span>
+      <div class="proof-text"><strong>78% empiezan gratis</strong>Statista 2026 — usuarios de IA generativa</div>
+    </div>
+    <div class="proof-item">
+      <span class="proof-icon">💼</span>
+      <div class="proof-text"><strong>42% sin título</strong>InfoJobs 2026 — ofertas de trabajo en IA</div>
+    </div>
+    <div class="proof-item">
+      <span class="proof-icon">🚀</span>
+      <div class="proof-text"><strong>550+ herramientas</strong>DonWeb 2026 — disponibles gratis hoy</div>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUIÉN -->
+<section class="section reveal" style="padding-top:0">
+  <div class="section-tag">¿es para mí?</div>
+  <h2 class="section-h">ESTA GUÍA<br>ES PARA VOS.</h2>
+  <div class="profiles-grid">
+    <div class="profile">
+      <span class="profile-icon">🔍</span>
+      <div class="profile-name">El Curioso</div>
+      <div class="profile-desc">Ves contenido de IA todo el día pero nunca ejecutás nada.</div>
+    </div>
+    <div class="profile">
+      <span class="profile-icon">🚀</span>
+      <div class="profile-name">El Emprendedor</div>
+      <div class="profile-desc">Tenés negocio y querés automatizar pero no sabés por dónde.</div>
+    </div>
+    <div class="profile">
+      <span class="profile-icon">🌱</span>
+      <div class="profile-name">El Principiante</div>
+      <div class="profile-desc">Querés aprender tech desde cero pero hay demasiadas opciones.</div>
+    </div>
+    <div class="profile">
+      <span class="profile-icon">💼</span>
+      <div class="profile-name">El Freelancer</div>
+      <div class="profile-desc">Querés ofrecer servicios de IA y automatización y necesitás base.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="form-section" id="descargar">
+  <div class="form-wrapper">
+    <div class="form-card">
+      <div id="formContent">
+        <div class="form-card-tag">// DESCARGA GRATUITA</div>
+        <div class="form-card-title">TU ROADMAP<br>TE ESPERA.</div>
+        <div class="form-card-sub">Completá los datos y descargá el PDF al instante. Sin spam.</div>
+        <div class="input-group">
+          <div class="input-wrap">
+            <label class="input-label">tu nombre</label>
+            <input type="text" class="form-input" id="nameInput" placeholder="Ej: Martín" autocomplete="given-name">
+          </div>
+          <div class="input-wrap">
+            <label class="input-label">tu email</label>
+            <input type="email" class="form-input" id="emailInput" placeholder="tu@email.com" autocomplete="email">
+          </div>
+          <div class="input-wrap">
+            <label class="input-label">tu nivel hoy</label>
+            <select class="form-input" id="levelInput" style="cursor:pointer">
+              <option value="" disabled selected>Elegí tu punto de partida</option>
+              <option value="cero">Nivel 0 — nunca toqué tech</option>
+              <option value="principiante">Principiante — uso Google Sheets</option>
+              <option value="emprendedor">Emprendedor — tengo negocio digital</option>
+              <option value="transicion">En transición — quiero cambiar de carrera</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn-submit" onclick="handleDownload()">
+          <span class="btn-submit-text">Descargar roadmap gratis →</span>
+        </button>
+        <div class="form-fine">🔒 Tus datos están seguros. Cero spam.</div>
+      </div>
+      <div class="success" id="successState">
+        <span class="success-emoji">🎉</span>
+        <div class="success-title">¡LISTO!</div>
+        <div class="success-sub">Tu roadmap se está descargando. Arrancá hoy.</div>
+        <a href="Espacio360_Guia1_Roadmap.pdf" download="Roadmap_Espacio360_2026.pdf" class="btn-dl">
+          ⬇️ Descargar PDF ahora
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final reveal">
+  <div class="cta-line">
+    <div class="cta-line-bar"></div>
+    <span class="cta-kw">@ESPACIO360HUB</span>
+    <div class="cta-line-bar right"></div>
+  </div>
+  <h2 class="cta-title">¿SEGUÍS ESPERANDO<br>EL MOMENTO?</h2>
+  <p class="cta-sub">El momento correcto es ahora. La guía es gratis. Tardás 2 minutos.</p>
+  <a href="#descargar" class="btn-cta">Quiero el roadmap →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">ESPACIO <span>360</span></a>
+  <div class="footer-links">
+    <a href="https://instagram.com/espacio360hub" target="_blank">@espacio360hub</a>
+    <a href="https://instagram.com/innovagreen.arg" target="_blank">@innovagreen.arg</a>
+    <a href="#descargar">Descargar guía</a>
+  </div>
+  <div class="footer-copy">// Guía gratuita 2026 · Espacio 360 · Todos los derechos reservados</div>
+</footer>
+
+<!-- FLOATING -->
+<a href="https://instagram.com/espacio360hub" target="_blank" class="floating">
+  <span class="floating-dot"></span>
+  COMENTÁ ROADMAP EN IG
+</a>
+
+<script>
+// ── CURSOR ──────────────────────────────────────────
+const cursor = document.getElementById('cursor');
+const ring   = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cursor.style.left=(mx-6)+'px';
+  cursor.style.top=(my-6)+'px';
+});
+(function animRing(){
+  rx+=(mx-rx-18)*.12;
+  ry+=(my-ry-18)*.12;
+  ring.style.left=rx+'px';
+  ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a,button,.tool-chip,.module,.profile').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cursor.style.transform='scale(2.5)');
+  el.addEventListener('mouseleave',()=>cursor.style.transform='scale(1)');
+});
+
+// ── PARTÍCULAS ───────────────────────────────────────
+const canvas=document.getElementById('particleCanvas');
+const ctx=canvas.getContext('2d');
+let W,H,particles=[];
+function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight}
+resize();window.addEventListener('resize',resize);
+class Particle{
+  constructor(){this.reset()}
+  reset(){
+    this.x=Math.random()*W;
+    this.y=Math.random()*H;
+    this.vx=(Math.random()-.5)*.3;
+    this.vy=(Math.random()-.5)*.3;
+    this.size=Math.random()*1.5+.5;
+    this.opacity=Math.random()*.5+.1;
+    this.color=Math.random()>.5?'0,212,255':'0,255,179';
+  }
+  update(){
+    this.x+=this.vx;this.y+=this.vy;
+    if(this.x<0||this.x>W||this.y<0||this.y>H)this.reset();
+  }
+  draw(){
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+    ctx.fillStyle=`rgba(${this.color},${this.opacity})`;
+    ctx.fill();
+  }
+}
+for(let i=0;i<80;i++)particles.push(new Particle());
+function drawConnections(){
+  for(let i=0;i<particles.length;i++){
+    for(let j=i+1;j<particles.length;j++){
+      const dx=particles[i].x-particles[j].x;
+      const dy=particles[i].y-particles[j].y;
+      const dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<120){
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x,particles[i].y);
+        ctx.lineTo(particles[j].x,particles[j].y);
+        ctx.strokeStyle=`rgba(0,212,255,${.08*(1-dist/120)})`;
+        ctx.lineWidth=.5;
+        ctx.stroke();
+      }
+    }
+  }
+}
+function animate(){
+  ctx.clearRect(0,0,W,H);
+  particles.forEach(p=>{p.update();p.draw()});
+  drawConnections();
+  requestAnimationFrame(animate);
+}
+animate();
+
+// ── CONTADORES ───────────────────────────────────────
+function countUp(el,target,duration=1800){
+  let start=0;const step=target/duration*16;
+  const timer=setInterval(()=>{
+    start=Math.min(start+step,target);
+    el.textContent=Math.floor(start)+(target>=100?'+':'');
+    if(start>=target)clearInterval(timer);
+  },16);
+}
+setTimeout(()=>{
+  countUp(document.getElementById('cnt1'),550);
+  countUp(document.getElementById('cnt2'),7,600);
+},600);
+
+// ── SCROLL REVEAL ────────────────────────────────────
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}
+  });
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// ── SMOOTH SCROLL ────────────────────────────────────
+document.querySelectorAll('a[href="#descargar"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    document.getElementById('descargar').scrollIntoView({behavior:'smooth'});
+    setTimeout(()=>document.getElementById('nameInput').focus(),700);
+  });
+});
+
+// ── FORMULARIO ───────────────────────────────────────
+function handleDownload(){
+  const name=document.getElementById('nameInput').value.trim();
+  const email=document.getElementById('emailInput').value.trim();
+  const level=document.getElementById('levelInput').value;
+  if(!name){alert('Ingresá tu nombre.');return}
+  if(!email||!email.includes('@')){alert('Ingresá un email válido.');return}
+  if(!level){alert('Seleccioná tu nivel.');return}
+  const leads=JSON.parse(localStorage.getItem('e360_leads')||'[]');
+  leads.push({name,email,level,timestamp:new Date().toISOString(),source:'ROADMAP'});
+  localStorage.setItem('e360_leads',JSON.stringify(leads));
+  document.getElementById('formContent').style.display='none';
+  document.getElementById('successState').classList.add('show');
+  setTimeout(()=>{
+    const a=document.createElement('a');
+    a.href='Espacio360_Guia1_Roadmap.pdf';
+    a.download='Roadmap_Espacio360_2026.pdf';
+    a.click();
+  },600);
+}
+
+// ── KEYBOARD ─────────────────────────────────────────
+document.addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&document.activeElement.classList.contains('form-input'))
+    handleDownload();
+});
+</script>
+</body>
+</html>
